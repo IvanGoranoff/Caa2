@@ -1,0 +1,15 @@
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.csproj.AssemblyReference.cache
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.AssemblyInfoInputs.cache
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.AssemblyInfo.cs
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.csproj.CoreCompileInputs.cache
+C:\Users\igora\source\repos\caa\caa\bin\Debug\net6.0\caa.exe
+C:\Users\igora\source\repos\caa\caa\bin\Debug\net6.0\caa.deps.json
+C:\Users\igora\source\repos\caa\caa\bin\Debug\net6.0\caa.runtimeconfig.json
+C:\Users\igora\source\repos\caa\caa\bin\Debug\net6.0\caa.dll
+C:\Users\igora\source\repos\caa\caa\bin\Debug\net6.0\caa.pdb
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.dll
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\refint\caa.dll
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.pdb
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\caa.genruntimeconfig.cache
+C:\Users\igora\source\repos\caa\caa\obj\Debug\net6.0\ref\caa.dll
