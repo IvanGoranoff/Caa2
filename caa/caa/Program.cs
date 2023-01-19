@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.IO;
 
 namespace LogicalFunctionProgram
 {
@@ -73,7 +74,7 @@ namespace LogicalFunctionProgram
             return result;
         }
 
-        // Writing and reading from a file
+
         // Writing and reading from a file
         static void WriteToFile(string fileName, string expression)
         {
@@ -82,6 +83,59 @@ namespace LogicalFunctionProgram
             {
                 sw.Write(expression);
             }
+        }
+
+        // Function to parse an expression into a list of logic nodes
+        public static List<LogicNode> Parse(string expression)
+        {
+            // Initialize an empty list of logic nodes
+            List<LogicNode> nodes = new List<LogicNode>();
+
+            // Iterate over each character of the expression
+            for (int i = 0; i < expression.Length; i++)
+            {
+                // Get the character at the current position
+                char c = expression[i];
+
+                // Check if the character is an operator
+                if (c == '&' || c == '|' || c == '!')
+                {
+                    // Create a logic node for the operator
+                    LogicNode node = new LogicNode(expression[i], false);
+                    nodes.Add(node);
+                }
+                else if (Char.IsLetterOrDigit(c))
+                {
+                    // Create a logic node for the variable
+                    LogicNode node = new LogicNode(expression[i], true);
+                    nodes.Add(node);
+                }
+            }
+
+            // Return the list of logic nodes
+            return nodes;
+        }
+
+        // Function to get the list of variables from a list of logic nodes
+        // Function to get the list of variables from a list of logic nodes
+        public static List<string> GetVariables(List<LogicNode> nodes)
+        {
+            // Initialize an empty list of variables
+            List<string> variables = new List<string>();
+
+            // Iterate over each node in the list
+            foreach (LogicNode node in nodes)
+            {
+                // Check if the node is a variable
+                if (node.IsVariable)
+                {
+                    // Add the variable to the list
+                    variables.Add(node.Value.ToString());
+                }
+            }
+
+            // Return the list of variables
+            return variables;
         }
 
         static string ReadFromFile(string fileName)
@@ -99,10 +153,7 @@ namespace LogicalFunctionProgram
         // Solving a function for given parameters
         static int SolveFunction(string expression, int parameter1, int parameter2)
         {
-            // Parse expression into tokens
             string[] tokens = ParseExpression(expression);
-
-            // Set parameters
             for (int i = 0; i < tokens.Length; i++)
             {
                 if (tokens[i] == "P1")
@@ -114,8 +165,6 @@ namespace LogicalFunctionProgram
                     tokens[i] = parameter2.ToString();
                 }
             }
-
-            // Solve expression with parameters
             int result = 0;
             for (int i = 0; i < tokens.Length; i++)
             {
@@ -137,9 +186,10 @@ namespace LogicalFunctionProgram
                         break;
                 }
             }
-
             return result;
         }
+
+
 
         // Construct a truth table for a logic function
         static int[][] ConstructTruthTable(string expression)
@@ -147,37 +197,39 @@ namespace LogicalFunctionProgram
             // Parse expression into tokens
             string[] tokens = ParseExpression(expression);
 
-            // Generate variations for the operands
-            List<int[]> variations = new List<int[]>();
-            for (int i = 0; i < tokens.Length; i++)
+            // List to store the variables
+            List<string> variables = new List<string>();
+
+            // Iterate over each token and determine if it is a variable
+            foreach (string token in tokens)
             {
-                if (tokens[i] == "A" || tokens[i] == "B")
+                if (Char.IsLetterOrDigit(token[0]))
                 {
-                    variations.Add(new int[] { 0, 1 });
+                    variables.Add(token);
                 }
             }
 
-            // Construct truth table
-            int[][] truthTable = new int[variations.Count][];
-            for (int i = 0; i < variations.Count; i++)
+            // Create the truth table
+            int[][] truthTable = new int[(int)Math.Pow(2, variables.Count)][];
+            for (int i = 0; i < (int)Math.Pow(2, variables.Count); i++)
             {
-                truthTable[i] = new int[variations[i].Length];
-                for (int j = 0; j < variations[i].Length; j++)
+                truthTable[i] = new int[variables.Count];
+
+                // Generate the combinations of 1s and 0s
+                for (int j = 0; j < variables.Count; j++)
                 {
-                    truthTable[i][j] = variations[i][j];
+                    truthTable[i][j] = (i >> j) & 1;
                 }
             }
 
             return truthTable;
         }
 
+
         // Interpreter for logical operations
         static int InterpretExpression(string expression)
         {
-            // Parse expression into tokens
             string[] tokens = ParseExpression(expression);
-
-            // Interpret expression
             int result = 0;
             for (int i = 0; i < tokens.Length; i++)
             {
@@ -199,7 +251,6 @@ namespace LogicalFunctionProgram
                         break;
                 }
             }
-
             return result;
         }
 
@@ -212,4 +263,24 @@ namespace LogicalFunctionProgram
             return tokens;
         }
     }
+    public class LogicNode
+{
+    // Character representing the value of the node
+    private char value;
+
+    // Boolean to indicate whether the node is a variable or an operator
+    private bool isVariable;
+
+    // Constructor
+    public LogicNode(char value, bool isVariable)
+    {
+        this.value = value;
+        this.isVariable = isVariable;
+    }
+
+    // Getters and setters
+    public char Value { get => value; set => value = value; }
+    public bool IsVariable { get => isVariable; set => isVariable = isVariable; }
+    }
+
 }
