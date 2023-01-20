@@ -151,6 +151,8 @@ namespace LogicalFunctionProgram
         }
 
         // Solving a function for given parameters
+        // Solving a function for given parameters
+
         static int SolveFunction(string expression, int parameter1, int parameter2)
         {
             string[] tokens = ParseExpression(expression);
@@ -171,16 +173,16 @@ namespace LogicalFunctionProgram
                 switch (tokens[i])
                 {
                     case "+":
-                        result = int.Parse(tokens[i - 2]) + int.Parse(tokens[i - 1]);
+                        result = int.Parse(tokens[i - 1]) + int.Parse(tokens[i - 2]);
                         break;
                     case "-":
-                        result = int.Parse(tokens[i - 2]) - int.Parse(tokens[i - 1]);
+                        result = int.Parse(tokens[i - 1]) - int.Parse(tokens[i - 2]);
                         break;
                     case "*":
-                        result = int.Parse(tokens[i - 2]) * int.Parse(tokens[i - 1]);
+                        result = int.Parse(tokens[i - 1]) * int.Parse(tokens[i - 2]);
                         break;
                     case "/":
-                        result = int.Parse(tokens[i - 2]) / int.Parse(tokens[i - 1]);
+                        result = int.Parse(tokens[i - 1]) / int.Parse(tokens[i - 2]);
                         break;
                     default:
                         break;
@@ -196,10 +198,8 @@ namespace LogicalFunctionProgram
         {
             // Parse expression into tokens
             string[] tokens = ParseExpression(expression);
-
             // List to store the variables
             List<string> variables = new List<string>();
-
             // Iterate over each token and determine if it is a variable
             foreach (string token in tokens)
             {
@@ -208,25 +208,22 @@ namespace LogicalFunctionProgram
                     variables.Add(token);
                 }
             }
-
             // Create the truth table
             int[][] truthTable = new int[(int)Math.Pow(2, variables.Count)][];
             for (int i = 0; i < (int)Math.Pow(2, variables.Count); i++)
             {
                 truthTable[i] = new int[variables.Count];
-
                 // Generate the combinations of 1s and 0s
                 for (int j = 0; j < variables.Count; j++)
                 {
                     truthTable[i][j] = (i >> j) & 1;
                 }
             }
-
             return truthTable;
         }
 
 
-        // Interpreter for logical operations
+        // Finding a logical function
         static int InterpretExpression(string expression)
         {
             string[] tokens = ParseExpression(expression);
@@ -254,33 +251,34 @@ namespace LogicalFunctionProgram
             return result;
         }
 
+
+
         // Parse expression into tokens
         static string[] ParseExpression(string expression)
         {
             // Split expression into tokens
             string[] tokens = expression.Split(' ');
-
             return tokens;
         }
     }
     public class LogicNode
-{
-    // Character representing the value of the node
-    private char value;
-
-    // Boolean to indicate whether the node is a variable or an operator
-    private bool isVariable;
-
-    // Constructor
-    public LogicNode(char value, bool isVariable)
     {
-        this.value = value;
-        this.isVariable = isVariable;
-    }
+        // Character representing the value of the node
+        private char value;
 
-    // Getters and setters
-    public char Value { get => value; set => value = value; }
-    public bool IsVariable { get => isVariable; set => isVariable = isVariable; }
+        // Boolean to indicate whether the node is a variable or an operator
+        private bool isVariable;
+
+        // Constructor
+        public LogicNode(char value, bool isVariable)
+        {
+            this.value = value;
+            this.isVariable = isVariable;
+        }
+
+        // Getters and setters
+        public char Value { get => value; set => value = value; }
+        public bool IsVariable { get => isVariable; set => isVariable = isVariable; }
     }
 
 }
